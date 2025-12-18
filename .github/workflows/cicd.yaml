@@ -20,13 +20,9 @@ jobs:
             echo "Checking $file"
           done
 
-      - name: Build container image
-        run: |
-          docker build -t hello-world:latest app/
-
       - name: Provision Kubernetes Cluster (conceptual)
         run: |
-          echo "Cluster provisioning is handled via scripts/install-k3s.sh"
+          echo "Cluster provisioning is handled via scripts/create-cluster.sh"
           echo "In production this would be executed via Terraform/Ansible or a self-hosted runner"
 
       - name: Deploy application to Kubernetes (conceptual)
