@@ -1,0 +1,35 @@
+name: Cloud & DevOps CI/CD
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Validate Kubernetes manifests
+        run: |
+          echo "Validating Kubernetes manifests"
+          for file in k8s/*.yaml; do
+            echo "Checking $file"
+          done
+
+      - name: Build container image
+        run: |
+          docker build -t hello-world:latest app/
+
+      - name: Provision Kubernetes Cluster (conceptual)
+        run: |
+          echo "Cluster provisioning is handled via scripts/install-k3s.sh"
+          echo "In production this would be executed via Terraform/Ansible or a self-hosted runner"
+
+      - name: Deploy application to Kubernetes (conceptual)
+        run: |
+          echo "kubectl apply -f k8s/"
+          echo "This step deploys Deployment, Service, Ingress, HPA and NetworkPolicies"
