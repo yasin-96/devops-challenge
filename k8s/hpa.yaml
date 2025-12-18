@@ -16,3 +16,24 @@ spec:
       target:
         type: Utilization
         averageUtilization: 50
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 0
+      policies:
+        - type: Percent
+          value: 100        # Innerhalb von 30 Sekunden darf die Replikazahl um bis zu 100 Prozent erhöht werden. Beispiel: Von 4 auf 8 Pods.
+          periodSeconds: 30
+        - type: Pods
+          value: 4            # Innerhalb von 30 Sekunden dürfen bis zu 4 zusätzliche Pods gestartet werden.
+          periodSeconds: 30
+      selectPolicy: Max        # Wenn beide Regeln gleichzeitig zutreffen, wird die größere Änderung gewählt. 
+    scaleDown:
+      stabilizationWindowSeconds: 30       # 30 Sekunden Beruhigungsfenster: Der HPA wartet kurz, ob die Last wirklich dauerhaft weniger wird, bevor er Pods beendet. Das verhindert Hin‑und‑Her‑Skalieren.
+      policies:
+        - type: Percent
+          value: 50            # Innerhalb von 30 Sekunden darf die Replikazahl um höchstens die Hälfte reduziert werden. Beispiel: Von 10 auf 5 Pods.
+          periodSeconds: 30
+        - type: Pods
+          value: 2            # Innerhalb von 30 Sekunden dürfen höchstens 2 Pods beendet werden.
+          periodSeconds: 30
+      selectPolicy: Max      
