@@ -28,4 +28,4 @@ jobs:
       - name: Deploy application to Kubernetes (conceptual)
         run: |
           echo "kubectl apply -f k8s/"
-          echo "This step deploys Deployment, Service, Ingress, HPA and NetworkPolicies"
+          echo "This step deploys Deployment, ConfigMap, Service, Ingress, HPA and NetworkPolicies"
