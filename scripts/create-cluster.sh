@@ -12,5 +12,7 @@ k3d cluster create devops-challenge \
   --port 80:80@loadbalancer \
   --port 443:443@loadbalancer
 
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
+
 echo "Cluster created successfully"
 kubectl get nodes

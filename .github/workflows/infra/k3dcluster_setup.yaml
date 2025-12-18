@@ -1,0 +1,21 @@
+name: Local Cluster Setup (Example)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  create-cluster:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Install k3d
+      run: |
+        curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
+
+    - name: Create k3d cluster
+      run: |
+        chmod +x scripts/create-cluster.sh
+        ./scripts/create-cluster.sh
